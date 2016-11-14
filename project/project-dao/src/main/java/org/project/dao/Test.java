@@ -25,7 +25,7 @@ public class Test {
 	@Resource
 	private SysUserService sysUserService;
 
-	@org.junit.Test
+	
 	public void test() {
 
 		List<SysUserDTO> dto = sysUserService.querySysUser();

@@ -14,18 +14,17 @@
 		<property name="location" value="classpath:sql-config.properties"></property>
 	</bean>
 
+	<context:annotation-config>
+		<context:component-scan base-package="org.project.service.*" />
+	</context:annotation-config>
+
 	<!-- 环境配置 -->
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-		destroy-method="close">
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${driver}" />
 		<property name="url" value="${url}" />
 		<property name="username" value="${username}" />
 		<property name="password" value="${password}" />
-		<property name="initialSize" value="${initialSize}" />
-		<property name="maxActive" value="${maxActive}" />
-		<property name="maxIdle" value="${maxIdle}" />
-		<property name="minIdle" value="${minIdle}" />
-		<property name="maxWait" value="${maxWait}" />
 	</bean>
 
 	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
@@ -37,7 +36,7 @@
 
 	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="org.project.dao.*.dao" />
+		<property name="basePackage" value="org.project.dao.*" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 	</bean>
 
