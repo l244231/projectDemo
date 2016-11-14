@@ -16,6 +16,18 @@
 
 	<!-- 依赖 -->
 	<dependencies>
+
+		<!-- 项目模块依赖 开始 -->
+		<dependency>
+			<groupId>com.project</groupId>
+			<artifactId>project-core</artifactId> 
+		</dependency>
+		<dependency>
+			<groupId>com.project</groupId>
+			<artifactId>project-dao</artifactId> 
+		</dependency>
+		<!-- 项目模块依赖 结束 -->
+		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -73,7 +85,7 @@
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId> 
+			<artifactId>commons-fileupload</artifactId>
 		</dependency>
 	</dependencies>
 	<build>
