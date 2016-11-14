@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.project.dao.SysUserDao">
+	<resultMap type="org.project.domain.SysUserDTO" id="rs_sysUser">
+		<result property="id" column="id" javaType="String" jdbcType="VARCHAR" />
+		<result property="user_name" column="id" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="password" column="id" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="is_vaild" column="id" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="created_user" column="id" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="created_date" column="id" javaType="java.util.Date"
+			jdbcType="DATETIME" />
+		<result property="updated_user" column="id" javaType="String"
+			jdbcType="VARCHAR" />
+		<result property="updated_date" column="updatedDate" javaType="java.util.Date"
+			jdbcType="DATETIME" />
+	</resultMap>
+
+	<select id="querySysUser" resultMap="rs_sysUser">
+		select ID,
+		user_name,
+		password,
+		is_vaild,
+		created_user,
+		created_date,
+		updated_user,
+		updated_date
+		from sys_user;
+	</select>
+</mapper>
