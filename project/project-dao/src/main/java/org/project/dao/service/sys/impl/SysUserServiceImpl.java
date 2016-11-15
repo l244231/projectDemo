@@ -7,6 +7,7 @@ package org.project.dao.service.sys.impl;
 
 import java.util.List;
 
+import org.project.dao.common.databse.DataSourceContextHolder;
 import org.project.dao.dao.sys.SysUserDao;
 import org.project.dao.domain.SysUserDTO;
 import org.project.dao.service.sys.SysUserService;
@@ -34,6 +35,7 @@ public class SysUserServiceImpl implements SysUserService {
 	 */
 	@Override
 	public List<SysUserDTO> querySysUser() {
+		DataSourceContextHolder.setDbType("db_01");
 		return dao.querySysUser();
 	}
 

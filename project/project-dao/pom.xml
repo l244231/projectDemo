@@ -33,6 +33,11 @@
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 		</dependency>
+		<dependency>
+			<!-- 连接池 -->
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+		</dependency>
 		<!-- mybatis 依赖结束 -->
 
 		<!-- spring 依赖开始 -->
