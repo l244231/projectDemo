@@ -10,7 +10,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.project.dao.domain.SysUserDTO;
-import org.project.dao.service.SysUserService;
+import org.project.dao.service.sys.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

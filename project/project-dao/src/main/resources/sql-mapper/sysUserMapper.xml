@@ -4,19 +4,19 @@
 <mapper namespace="org.project.dao.dao.sys.SysUserDao">
 	<resultMap type="org.project.dao.domain.SysUserDTO" id="rs_sysUser">
 		<result property="id" column="id" javaType="String" jdbcType="VARCHAR" />
-		<result property="user_name" column="id" javaType="String"
+		<result property="userName" column="user_name" javaType="String"
 			jdbcType="VARCHAR" />
-		<result property="password" column="id" javaType="String"
+		<result property="password" column="password" javaType="String"
 			jdbcType="VARCHAR" />
-		<result property="is_vaild" column="id" javaType="String"
+		<result property="isVaild" column="is_vaild" javaType="String"
 			jdbcType="VARCHAR" />
-		<result property="created_user" column="id" javaType="String"
+		<result property="createdUser" column="created_user" javaType="String"
 			jdbcType="VARCHAR" />
-		<result property="created_date" column="id" javaType="java.util.Date"
+		<result property="createdDate" column="created_date" javaType="java.util.Date"
 			jdbcType="DATE" />
-		<result property="updated_user" column="id" javaType="String"
+		<result property="updatedUser" column="updated_user" javaType="String"
 			jdbcType="VARCHAR" />
-		<result property="updated_date" column="updatedDate" javaType="java.util.Date"
+		<result property="updatedDate" column="updated_date" javaType="java.util.Date"
 			jdbcType="DATE" />
 	</resultMap>
 

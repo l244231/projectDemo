@@ -3,7 +3,7 @@
  * Author : Zain.Luo
  * Created Date: 2016年11月14日 
  */
-package org.project.dao.service;
+package org.project.dao.service.sys;
 
 import java.util.List;
 import org.project.dao.domain.SysUserDTO;

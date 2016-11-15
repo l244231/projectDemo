@@ -3,13 +3,13 @@
  * Author : Zain.Luo
  * Created Date: 2016年11月14日 
  */
-package org.project.dao.service.impl;
+package org.project.dao.service.sys.impl;
 
 import java.util.List;
 
 import org.project.dao.dao.sys.SysUserDao;
 import org.project.dao.domain.SysUserDTO;
-import org.project.dao.service.SysUserService;
+import org.project.dao.service.sys.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

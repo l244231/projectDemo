@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.project.core.constant.FileConstant;
 import org.project.dao.domain.SysUserDTO;
-import org.project.dao.service.SysUserService;
+import org.project.dao.service.sys.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

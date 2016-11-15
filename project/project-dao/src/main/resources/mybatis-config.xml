@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans    
                         http://www.springframework.org/schema/beans/spring-beans-4.3.xsd    
                         http://www.springframework.org/schema/context    
-                        http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+                        http://www.springframework.org/schema/context/spring-context-4.3.xsd
+                        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- 引入配置文件 -->
 	<bean id="propertyConfigurer"
@@ -14,9 +15,10 @@
 		<property name="location" value="classpath:sql-config.properties"></property>
 	</bean>
 
-	<context:annotation-config>
-		<context:component-scan base-package="org.project.service.*" />
-	</context:annotation-config>
+	<!-- service层自动扫描 -->
+	<context:component-scan base-package="org.project.dao.dao.*" />
+	<context:component-scan base-package="org.project.dao.service.*" />
+	
 
 	<!-- 环境配置 -->
 	<bean id="dataSource"
@@ -36,7 +38,7 @@
 
 	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="org.project.dao.*" />
+		<property name="basePackage" value="org.project.dao.dao.*" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 	</bean>
 
