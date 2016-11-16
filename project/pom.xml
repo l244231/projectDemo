@@ -13,6 +13,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.3.3.RELEASE</spring.version>
+		<quartz.version>2.2.1</quartz.version>
+		<module.version>0.0.1</module.version>
 	</properties>
 
 	<!-- 私人nexus仓库 -->
@@ -198,19 +200,45 @@
 
 			<!-- 数据库依赖 结束 -->
 
+			<!-- Quartz依赖 开始 -->
+			<dependency>
+				<groupId>org.quartz-scheduler</groupId>
+				<artifactId>quartz</artifactId>
+				<version>${quartz.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.quartz-scheduler</groupId>
+				<artifactId>quartz-jobs</artifactId>
+				<version>${quartz.version}</version>
+			</dependency>
+			<!-- Quartz依赖 结束 -->
+
 			<!-- 模块之间的依赖 开始 -->
 			<dependency>
 				<groupId>com.project</groupId>
 				<artifactId>project-core</artifactId>
-				<version>0.0.1</version>
+				<version>#{module.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.project</groupId>
 				<artifactId>project-dao</artifactId>
-				<version>0.0.1</version>
+				<version>#{module.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.project</groupId>
+				<artifactId>project-web</artifactId>
+				<version>#{module.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.project</groupId>
+				<artifactId>project-quartz</artifactId>
+				<version>#{module.version}</version>
 			</dependency>
 			<!-- 模块之间的依赖 结束 -->
+			
 		</dependencies>
+
+
 	</dependencyManagement>
 
 	<!-- 模块 -->
@@ -218,5 +246,6 @@
 		<module>project-web</module>
 		<module>project-core</module>
 		<module>project-dao</module>
+		<module>project-quartz</module>
 	</modules>
 </project>
