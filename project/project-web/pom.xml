@@ -6,10 +6,11 @@
 	<parent>
 		<groupId>com.project</groupId>
 		<artifactId>project</artifactId>
-		<version>0.0.1</version>
+		<version>0.0.2</version>
 	</parent>
-
+	<groupId>com.project</groupId>
 	<artifactId>project-web</artifactId>
+	<version>0.0.2</version>
 	<packaging>war</packaging>
 	<name>project-web Maven Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -20,14 +21,14 @@
 		<!-- 项目模块依赖 开始 -->
 		<dependency>
 			<groupId>com.project</groupId>
-			<artifactId>project-core</artifactId> 
+			<artifactId>project-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.project</groupId>
-			<artifactId>project-dao</artifactId> 
+			<artifactId>project-dao</artifactId>
 		</dependency>
 		<!-- 项目模块依赖 结束 -->
-		
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

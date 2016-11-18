@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>com.project</groupId>
 		<artifactId>project</artifactId>
-		<version>0.0.1</version>
+		<version>0.0.2</version>
 	</parent>
 	<groupId>com.project</groupId>
 	<artifactId>project-quartz</artifactId>
-	<version>0.0.1</version>
 	<name>project-quartz</name>
+	<version>0.0.2</version>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,6 +24,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- 模块之间依赖 开始 -->
+		<!-- --><dependency>
+			<groupId>com.project</groupId>
+			<artifactId>project-dao</artifactId> 
+		</dependency> 
+		<!-- 模块之间依赖 结束 -->
+		
 		<!-- quartz 依赖开始 -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
@@ -32,6 +39,10 @@
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
 			<artifactId>quartz-jobs</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 		<!-- quartz 依赖结束 -->
 
@@ -42,5 +53,23 @@
 		</dependency>
 		<!-- log4j 依赖结束 -->
 
+		<!-- Spring 依赖开始 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+		</dependency>
+		<!-- Spring 依赖结束 -->
 	</dependencies>
 </project>

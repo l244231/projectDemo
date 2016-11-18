@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.project</groupId>
 	<artifactId>project</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<packaging>pom</packaging>
 	<name>project</name>
 	<description>project</description>
@@ -14,7 +14,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.3.3.RELEASE</spring.version>
 		<quartz.version>2.2.1</quartz.version>
-		<module.version>0.0.1</module.version>
+		<module.version>0.0.2</module.version>
 	</properties>
 
 	<!-- 私人nexus仓库 -->
@@ -127,6 +127,11 @@
 				<artifactId>spring-expression</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
 			<!-- Spring 依赖 结束 -->
 
 			<!-- web标签库 开始 -->
@@ -211,31 +216,43 @@
 				<artifactId>quartz-jobs</artifactId>
 				<version>${quartz.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>1.7.21</version>
+			</dependency>
 			<!-- Quartz依赖 结束 -->
 
 			<!-- 模块之间的依赖 开始 -->
 			<dependency>
 				<groupId>com.project</groupId>
 				<artifactId>project-core</artifactId>
-				<version>#{module.version}</version>
+				<version>${module.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.project</groupId>
 				<artifactId>project-dao</artifactId>
-				<version>#{module.version}</version>
+				<version>${module.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.project</groupId>
 				<artifactId>project-web</artifactId>
-				<version>#{module.version}</version>
+				<version>${module.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.project</groupId>
 				<artifactId>project-quartz</artifactId>
-				<version>#{module.version}</version>
+				<version>${module.version}</version>
 			</dependency>
 			<!-- 模块之间的依赖 结束 -->
-			
+
+			<!-- 二维码工具类依赖 -开始 -->
+			<dependency>
+				<groupId>com.google.zxing</groupId>
+				<artifactId>core</artifactId>
+				<version>3.3.0</version>
+			</dependency>
+			<!-- 二维码工具类依赖 -结束 -->
 		</dependencies>
 
 

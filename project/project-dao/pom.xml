@@ -6,11 +6,11 @@
 	<parent>
 		<groupId>com.project</groupId>
 		<artifactId>project</artifactId>
-		<version>0.0.1</version>
+		<version>0.0.2</version>
 	</parent>
 	<groupId>com.project</groupId>
 	<artifactId>project-dao</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<name>project-dao</name>
 	<url>http://maven.apache.org</url>
 	<properties>

@@ -9,9 +9,19 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.quartz.Job;
+import org.quartz.JobDetail;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
+import static org.quartz.JobBuilder.*;
+import static org.quartz.SimpleScheduleBuilder.*;
+import static org.quartz.CronScheduleBuilder.*;
+import static org.quartz.CalendarIntervalScheduleBuilder.*;
+import static org.quartz.TriggerBuilder.*;
+import static org.quartz.DateBuilder.*;
 
 /**
  * @title TODO
@@ -21,7 +31,7 @@ import org.quartz.impl.StdSchedulerFactory;
  * 				2016年11月16日 Zain.Luo create file<br>
  *              Id:QuartzTest2.java,v1.0 2016年11月16日 下午6:01:30
  */
-public class QuartzTest2 {
+public class QuartzTest2 implements Job{
 
 	/**
 	 * @Title: setUp
@@ -49,6 +59,15 @@ public class QuartzTest2 {
 			e.printStackTrace();
 		}
 
+	}
+
+	/* (non-Javadoc)
+	 * @see org.quartz.Job#execute(org.quartz.JobExecutionContext)
+	 */
+	@Override
+	public void execute(JobExecutionContext arg0) throws JobExecutionException {
+		System.out.println("Hello Quartz");
+		
 	}
 
 }
