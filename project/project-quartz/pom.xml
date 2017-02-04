@@ -71,4 +71,16 @@
 		</dependency>
 		<!-- Spring 依赖结束 -->
 	</dependencies>
+	
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resource</directory>
+				<includes>
+					<include>biz-quartz.xml</include>
+					<include>quartz-config.properties</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
 </project>

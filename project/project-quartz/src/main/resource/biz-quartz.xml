@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
-<beans>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-4.3.xsd   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+                        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+                        ">
 
 	<!-- 读取配置文件 -->
-	<bean id="propertiesBean"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<bean id="propertyConfigurerQ" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:quartz-config.properties"></property>
 	</bean>
 
 	<!--定义scheduler -->
-	<bean id="schedulerFactory"
-		class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
-		destroy-method="destroy">
+	<bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" destroy-method="destroy">
 		<property name="triggers">
 			<list>
-				<ref local="helloJobTrigger" />
+				<ref bean="helloJobTrigger" />
 			</list>
 		</property>
 		<property name="group">
@@ -24,7 +27,7 @@
 			<value>classpath:quartz-config.properties</value>
 		</property>
 		<property name="transactionManager">
-			<ref local="transactionManager" />
+			<ref bean="transactionManager" />
 		</property>
 		<!-- 如果这个覆盖配置为false，quratz启动以后将以数据库的数据为准，配置文件的修改不起作用 -->
 		<property name="overwriteExistingJobs">
@@ -45,8 +48,7 @@
 
 	<!--定义job的事务管理器 -->
 	<!--dsFactory 在biz-context.xml里定义 -->
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>
@@ -55,8 +57,7 @@
 
 	<!-- 上传通知 start -->
 	<bean id="helloJobBean" class="org.project.quartz.test.HelloJob" />
-	<bean id="helloJob"
-		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+	<bean id="helloJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass">
 			<value>org.springframework.scheduling.quartz.QuartzJobBean</value>
 		</property>
@@ -78,14 +79,12 @@
 		</property>
 	</bean>
 
-	<bean id="helloJobTrigger"
-		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
-		lazy-init="true">
+	<bean id="helloJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" lazy-init="true">
 		<property name="cronExpression">
 			<value>${helloJob.time}</value>
 		</property>
 		<property name="jobDetail">
-			<ref local="helloJob" />
+			<ref  bean="helloJob" />
 		</property>
 		<property name="group">
 			<value>${org.quartz.group.name}</value>
