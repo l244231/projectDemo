@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.project</groupId>
 	<artifactId>project</artifactId>
@@ -13,8 +12,11 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.3.3.RELEASE</spring.version>
+		<log4j.version>2.7</log4j.version>
 		<quartz.version>2.2.1</quartz.version>
 		<module.version>0.0.2</module.version>
+		<beetl.version>2.7.3</beetl.version>
+		<hibernate.version>4.1.9.Final</hibernate.version>
 	</properties>
 
 	<!-- 私人nexus仓库 -->
@@ -48,34 +50,43 @@
 	</pluginRepositories>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<encoding>UTF-8</encoding>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.2</version>
-				<configuration>
-					<port>8080</port>
-					<url>http://localhost:8080/project</url>
-					<server>tomcat</server>
-					<username>zain</username>
-					<password>xian244231</password>
-				</configuration>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<encoding>UTF-8</encoding>
+						<source>1.7</source>
+						<target>1.7</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.2</version>
+					<configuration>
+						<port>8080</port>
+						<url>http://localhost:8080/project</url>
+						<server>tomcat</server>
+						<username>zain</username>
+						<password>xian244231</password>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<!-- 依赖 -->
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.12</version>
+				<scope>test</scope>
+			</dependency>
+
 			<!-- Spring 依赖 开始 -->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -90,6 +101,16 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-aop</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aspects</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
@@ -149,6 +170,7 @@
 				<groupId>javax.servlet</groupId>
 				<artifactId>javax.servlet-api</artifactId>
 				<version>3.1.0</version>
+				<scope>provided</scope>
 			</dependency>
 			<!-- web标签库 结束 -->
 
@@ -166,11 +188,42 @@
 			</dependency>
 			<!-- Mybatis 依赖结束 -->
 
+			<!-- 分面插件 开始 -->
+			<dependency>
+				<groupId>com.github.pagehelper</groupId>
+				<artifactId>pagehelper</artifactId>
+				<version>5.0.0-rc</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.github.jsqlparser</groupId>
+				<artifactId>jsqlparser</artifactId>
+				<version>0.9.6</version>
+			</dependency>
+			<!-- 分面插件 结束 -->
+
+
 			<!-- log4j 依赖 开始 -->
 			<dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
 				<version>1.2.17</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-api</artifactId>
+				<version>${log4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-core</artifactId>
+				<version>${log4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-web</artifactId>
+				<version>${log4j.version}</version>
 			</dependency>
 			<!-- log4j 依赖 结束 -->
 
@@ -202,9 +255,41 @@
 				<artifactId>druid</artifactId>
 				<version>1.0.26</version>
 			</dependency>
-
+			<dependency>
+				<groupId>com.microsoft.sqlserver</groupId>
+				<artifactId>mssql-jdbc</artifactId>
+				<version>6.1.0.jre7</version>
+			</dependency>
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>9.4.1212.jre7</version>
+			</dependency>
 			<!-- 数据库依赖 结束 -->
 
+			<!-- beetl 依赖开始 -->
+			<dependency>
+				<groupId>com.ibeetl</groupId>
+				<artifactId>beetl</artifactId>
+				<version>${beetl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.ibeetl</groupId>
+				<artifactId>beetlsql</artifactId>
+				<version>${beetl.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.cms.project</groupId>
+				<artifactId>cms-core</artifactId>
+				<version>0.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>com.cms.project</groupId>
+				<artifactId>cms-hb</artifactId>
+				<version>0.0.1</version>
+			</dependency>
+			<!-- beetl 依赖结束 -->
 			<!-- Quartz依赖 开始 -->
 			<dependency>
 				<groupId>org.quartz-scheduler</groupId>
@@ -222,6 +307,34 @@
 				<version>1.7.21</version>
 			</dependency>
 			<!-- Quartz依赖 结束 -->
+
+			<!-- hibernate 开始 -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-ehcache</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate.javax.persistence</groupId>
+				<artifactId>hibernate-jpa-2.0-api</artifactId>
+				<version>1.0.1.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>com.googlecode.flyway</groupId>
+				<artifactId>flyway-core</artifactId>
+				<version>2.3.1</version>
+			</dependency>
+			<!-- hibernate 结束 -->
 
 			<!-- 模块之间的依赖 开始 -->
 			<dependency>

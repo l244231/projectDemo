@@ -34,4 +34,30 @@
 		<property name="maxUploadSize" value="10485760000"></property>
 		<property name="maxInMemorySize" value="40960"></property>
 	</bean>
+	
+	<!-- beetl 模版控制 -->
+	<!-- beetl 模版引擎 
+	<bean id="beetlConfig" class="org.beetl.ext.spring.BeetlGroupUtilConfiguration"
+		init-method="init">
+		<property name="root" value="/" />
+		<property name="configFileResource" value="classpath:beetl.properties" />
+		<property name="functions">
+			<map>
+			<entry key="sysPara" value-ref="SysParameterFun" />
+			</map>
+		</property>
+	</bean>
+	
+	<bean name="SysParameterFun" class="com.cms.web.common.beetl.function.SysParameterFun" />
+	
+	<bean id="viewResolver" class="org.beetl.ext.spring.BeetlSpringViewResolver">
+		<property name="config" ref="beetlConfig" />
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="suffix" value=".html"></property>
+		<property name="prefix" value="/WEB-INF/views/" />
+	</bean>
+
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver" />
+	-->
 </beans>

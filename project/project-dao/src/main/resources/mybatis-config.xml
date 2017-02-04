@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans    
                         http://www.springframework.org/schema/beans/spring-beans-4.3.xsd    
                         http://www.springframework.org/schema/context    
-                        http://www.springframework.org/schema/context/spring-context-4.3.xsd
-                        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-
+                        http://www.springframework.org/schema/context/spring-context-4.3.xsd   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+                        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+                        ">
 	<!-- 引入配置文件 -->
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:sql-config.properties"></property>
 	</bean>
 
 	<!-- service层自动扫描 -->
-	<context:component-scan base-package="org.project.dao.service.*" />
+	<context:component-scan base-package="com.project.dao.*.service.*" />
 
 
 	<!-- 数据源配置 -->
-	<bean id="db_00" init-method="init" destroy-method="close"
-		class="com.alibaba.druid.pool.DruidDataSource">
+	<bean id="db_00" init-method="init" destroy-method="close" class="com.alibaba.druid.pool.DruidDataSource">
 		<property name="driverClassName" value="${driver}" />
 		<property name="url" value="${url}" />
 		<property name="username" value="${username}" />
@@ -38,8 +34,7 @@
 		<property name="maxWait" value="60000" />
 	</bean>
 
-	<bean id="db_01" init-method="init" destroy-method="close"
-		class="com.alibaba.druid.pool.DruidDataSource">
+	<bean id="db_01" init-method="init" destroy-method="close" class="com.alibaba.druid.pool.DruidDataSource">
 		<property name="driverClassName" value="${driver}" />
 		<property name="url" value="${url2}" />
 		<property name="username" value="${username}" />
@@ -58,7 +53,7 @@
 
 
 	<!-- 动态配置数据源 -->
-	<bean id="dataSource" class="org.project.dao.common.databse.DynamicDataSource">
+	<bean id="dataSource" class="com.project.dao.common.databse.DynamicDataSource">
 		<property name="targetDataSources">
 			<map key-type="java.lang.String">
 				<entry value-ref="db_00" key="db_00" />
@@ -72,19 +67,42 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<!-- 自动扫描mapping.xml文件 -->
-		<property name="mapperLocations" value="classpath:sql-mapper/*.xml"></property>
+		<property name="mapperLocations" value="classpath:sql-mapper/**/*.xml"></property>
+		<property name="configLocation" value="classpath:mybatis-setting.xml" />
 	</bean>
 
 	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="org.project.dao.dao.*" />
+		<property name="basePackage" value="com.project.dao.*.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 	</bean>
 
 	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
+	<!-- 事务配置 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="select*" read-only="true" />
+			<tx:method name="load*" read-only="true" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="create" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<aop:config>
+		<aop:pointcut expression="execution(* com.project.dao.*.service.impl.*.*(..))" id="txPointcut" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
+	</aop:config>
 </beans>
