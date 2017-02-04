@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/project/project.iml" filepath="$PROJECT_DIR$/project/project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/project/project-core/project-core.iml" filepath="$PROJECT_DIR$/project/project-core/project-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/project/project-dao/project-dao.iml" filepath="$PROJECT_DIR$/project/project-dao/project-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/project/project-quartz/project-quartz.iml" filepath="$PROJECT_DIR$/project/project-quartz/project-quartz.iml" />
+      <module fileurl="file://$PROJECT_DIR$/project/project-web/project-web.iml" filepath="$PROJECT_DIR$/project/project-web/project-web.iml" />
+    </modules>
+  </component>
+</project>

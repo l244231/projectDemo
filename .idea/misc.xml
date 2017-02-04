@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/project/project-web" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/project/project-dao/pom.xml" />
+        <option value="$PROJECT_DIR$/project/project-quartz/pom.xml" />
+        <option value="$PROJECT_DIR$/project/pom.xml" />
+        <option value="$PROJECT_DIR$/project/project-web/pom.xml" />
+        <option value="$PROJECT_DIR$/project/project-core/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
