@@ -99,9 +99,5 @@
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 	<!-- log4j 配置结束 -->
-
-	<welcome-file-list>
-		<welcome-file>/views/cms/main/main.html</welcome-file>
-	</welcome-file-list>
-  
+ 
 </web-app>

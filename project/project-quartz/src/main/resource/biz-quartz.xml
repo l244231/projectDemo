@@ -11,23 +11,21 @@
 	<!-- 读取配置文件 -->
 	<bean id="propertyConfigurerQ" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:quartz-config.properties"></property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
 
-	<!--定义scheduler -->
-	<bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" destroy-method="destroy">
+	<!-- 调度工厂 -->
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<ref bean="helloJobTrigger" />
+				<ref bean="demoTrigger" />
 			</list>
 		</property>
-		<property name="group">
-			<value>${org.quartz.group.name}</value>
-		</property>
-		<property name="configLocation">
+		 <property name="configLocation">
 			<value>classpath:quartz-config.properties</value>
 		</property>
 		<property name="transactionManager">
-			<ref bean="transactionManager" />
+			<ref bean="transactionManagerQ" />
 		</property>
 		<!-- 如果这个覆盖配置为false，quratz启动以后将以数据库的数据为准，配置文件的修改不起作用 -->
 		<property name="overwriteExistingJobs">
@@ -42,54 +40,35 @@
 		</property>
 		<property name="autoStartup" value="${quartz.autoStartup}">
 		</property>
-		<property name="startupDelay" value="${quartz.startupDelay}">
+	</bean>
+
+
+	<bean id="demoJob" class="com.project.quartz.demo.HelloJob" />
+	<bean id="demoJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="group" value="${org.quartz.group.name}" />
+		<property name="name" value="demoJob" />
+		<property name="jobClass" value="com.project.quartz.demo.HelloJob" />
+		<property name="durability" value="true" />
+	</bean>
+
+	<!-- 调度触发器 -->
+	<bean id="demoTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="name" value="demoTrigger" />
+		<property name="group" value="${org.quartz.group.name}" />
+		<property name="jobDetail">
+			<ref bean="demoJobDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>${helloJob.time}</value>
 		</property>
 	</bean>
 
+
 	<!--定义job的事务管理器 -->
 	<!--dsFactory 在biz-context.xml里定义 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="transactionManagerQ" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>
 	</bean>
-
-
-	<!-- 上传通知 start -->
-	<bean id="helloJobBean" class="org.project.quartz.test.HelloJob" />
-	<bean id="helloJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-		<property name="jobClass">
-			<value>org.springframework.scheduling.quartz.QuartzJobBean</value>
-		</property>
-		<property name="jobDataAsMap">
-			<map>
-				<entry key="beanID">
-					<value>helloJobBean</value>
-				</entry>
-				<entry key="methodName">
-					<value>execute</value>
-				</entry>
-			</map>
-		</property>
-		<property name="requestsRecovery">
-			<value>true</value>
-		</property>
-		<property name="group">
-			<value>${org.quartz.group.name}</value>
-		</property>
-	</bean>
-
-	<bean id="helloJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" lazy-init="true">
-		<property name="cronExpression">
-			<value>${helloJob.time}</value>
-		</property>
-		<property name="jobDetail">
-			<ref  bean="helloJob" />
-		</property>
-		<property name="group">
-			<value>${org.quartz.group.name}</value>
-		</property>
-	</bean>
-	<!-- 上传通知 end -->
-
 </beans>
